@@ -3,17 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DC Genderang Irama - MAN 2 MODEL BANJARMASIN</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <!-- Primary Meta Tags -->
+    <title>DC Genderang Irama - Marching Band MAN 2 Model Banjarmasin</title>
+    <meta name="title" content="DC Genderang Irama - Marching Band MAN 2 Model Banjarmasin">
+    <meta name="description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 Model Banjarmasin. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik sejak 2009.">
+    <meta name="keywords" content="DCGI, Drum Corps Genderang Irama, Marching Band Banjarmasin, MAN 2 Model Banjarmasin, Ekstrakurikuler MAN 2, Drumband Kalsel, Seni Pertunjukan">
+    <meta name="author" content="DC Genderang Irama">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ url('/') }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url('/') }}">
+    <meta property="og:title" content="DC Genderang Irama - Marching Band MAN 2 Model Banjarmasin">
+    <meta property="og:description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 Model Banjarmasin. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik.">
+    <meta property="og:image" content="{{ asset('favicon.ico') }}"> <!-- Ganti dengan URL gambar preview yang lebih besar jika ada -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url('/') }}">
+    <meta property="twitter:title" content="DC Genderang Irama - Marching Band MAN 2 Model Banjarmasin">
+    <meta property="twitter:description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 Model Banjarmasin. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik.">
+    <meta property="twitter:image" content="{{ asset('favicon.ico') }}"> <!-- Ganti dengan URL gambar preview yang lebih besar jika ada -->
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+        {!! json_encode($structuredData, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) !!}
+    </script>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
-
-
-
+    
+    <style>
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-on-scroll.is-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+    </style>
 </head>
 <body class="font-sans bg-elegant-black text-elegant-text antialiased selection:bg-elegant-red selection:text-white">
 
@@ -71,26 +115,26 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col lg:flex-row items-center gap-20">
                 <div class="lg:w-1/2 order-2 lg:order-1">
-                    <h2 class="font-serif text-4xl md:text-5xl text-white mb-8 leading-snug">
+                    <h2 class="animate-on-scroll font-serif text-4xl md:text-5xl text-white mb-8 leading-snug">
                         Seni, Disiplin, & <br> <span class="text-elegant-red italic">Kreativitas.</span>
                     </h2>
-                    <div class="w-20 h-[2px] bg-gradient-to-r from-elegant-red to-transparent mb-8"></div>
+                    <div class="w-20 h-[2px] bg-gradient-to-r from-elegant-red to-transparent mb-8 animate-on-scroll"></div>
                     
-                    <p class="text-gray-400 leading-8 font-light mb-6 text-justify">
+                    <p class="animate-on-scroll text-gray-400 leading-8 font-light mb-6 text-justify">
                         <span class="text-5xl float-left mr-3 mt-[-10px] font-serif text-elegant-gold">D</span>rum Corps Genderang Irama berdiri sejak tahun 2009 sebagai wujud dedikasi terhadap seni pertunjukan. Kami bukan sekadar barisan musisi; kami adalah perpaduan sinergis antara musik, visual, dan karakter.
                     </p>
                     <div class="grid grid-cols-2 gap-8 border-t border-white/10 pt-8">
-                        <div>
+                        <div class="animate-on-scroll">
                             <p class="font-serif text-3xl text-white">15<span class="text-elegant-red text-xl">+</span></p>
                             <p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Tahun Berkarya</p>
                         </div>
-                        <div>
+                        <div class="animate-on-scroll" style="transition-delay: 100ms;">
                             <p class="font-serif text-3xl text-white">4<span class="text-elegant-red text-xl">+</span></p>
                             <p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Gelar Bergengsi</p>
                         </div>
                     </div>
                 </div>
-                <div class="lg:w-1/2 order-1 lg:order-2 relative">
+                <div class="lg:w-1/2 order-1 lg:order-2 relative animate-on-scroll">
                     <div class="absolute -top-4 -right-4 w-full h-full border border-elegant-red/30 z-0"></div>
                     <div class="relative z-10 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
                         <img src="https://picsum.photos/600/800?grayscale" alt="Marching Art" class="w-full grayscale hover:grayscale-0 transition duration-1000 ease-in-out transform hover:scale-105">
@@ -108,18 +152,18 @@
         <div class="absolute inset-0 bg-gradient-to-b from-elegant-black via-transparent to-elegant-black pointer-events-none"></div>
         
         <div class="container mx-auto px-6 relative z-10">
-            <div class="text-center mb-16">
+            <div class="text-center mb-16 animate-on-scroll">
                 <span class="text-elegant-gold text-xs font-bold tracking-[0.3em] uppercase">Core Values</span>
                 <h2 class="font-serif text-4xl text-white mt-4">Visi & Misi</h2>
             </div>
             <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div class="glass-panel p-10 rounded-sm hover:border-elegant-red/50 transition duration-500 group">
+                <div class="animate-on-scroll glass-panel p-10 rounded-sm hover:border-elegant-red/50 transition duration-500 group">
                     <h3 class="font-serif text-2xl text-white mb-6 italic group-hover:text-elegant-red transition">"Our Vision"</h3>
                     <p class="text-gray-300 font-light leading-relaxed italic border-l-2 border-elegant-gold pl-6">
                         {{ $vision?->content ?? 'No Vision Set' }}
                     </p>
                 </div>
-                <div class="glass-panel p-10 rounded-sm hover:border-elegant-red/50 transition duration-500">
+                <div class="animate-on-scroll glass-panel p-10 rounded-sm hover:border-elegant-red/50 transition duration-500" style="transition-delay: 200ms;">
                     <h3 class="font-serif text-2xl text-white mb-6 italic">"Our Mission"</h3>
                     <ul class="space-y-4">
                         @foreach($missions as $index => $mission)
@@ -137,11 +181,11 @@
     <section id="gallery" class="py-32 bg-elegant-black relative">
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-end mb-12">
-                <div>
+                <div class="animate-on-scroll">
                     <h2 class="font-serif text-4xl text-white">Visual <span class="italic text-elegant-red">Art.</span></h2>
                     <p class="text-gray-500 text-sm mt-2 tracking-wide">Momen terbaik dalam setiap detak.</p>
                 </div>
-                <a href="#" class="hidden md:block text-xs font-bold text-elegant-gold tracking-[0.2em] uppercase hover:text-white transition">View Gallery <i class="fa-solid fa-arrow-right ml-2"></i></a>
+                <a href="{{ route('gallery.index') }}" class="hidden md:block text-xs font-bold text-elegant-gold tracking-[0.2em] uppercase hover:text-white transition">View Gallery <i class="fa-solid fa-arrow-right ml-2"></i></a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[600px]">
@@ -155,7 +199,7 @@
                         if ($index == 0) $classes = 'md:col-span-2 md:row-span-2';
                         if ($index == 1) $classes = 'md:col-span-1 md:row-span-2';
                     @endphp
-                    <div class="{{ $classes }} group relative overflow-hidden rounded-sm cursor-pointer">
+                    <div class="{{ $classes }} group relative overflow-hidden rounded-sm cursor-pointer animate-on-scroll" style="transition-delay: {{ $index * 100 }}ms;">
                         <img src="{{ $album->cover_image_path }}" alt="{{ $album->title }}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:grayscale-0">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
                             <span class="text-white font-serif italic text-xl">{{ $album->title }}</span>
@@ -166,14 +210,14 @@
             </div>
             
             <div class="mt-8 md:hidden text-center">
-                <a href="#" class="text-xs font-bold text-elegant-gold tracking-[0.2em] uppercase">View Gallery</a>
+                <a href="{{ route('gallery.index') }}" class="text-xs font-bold text-elegant-gold tracking-[0.2em] uppercase">View Gallery</a>
             </div>
         </div>
     </section>
 
     <section id="achievements" class="py-32 bg-elegant-charcoal overflow-hidden border-t border-gray-900">
     <div class="container mx-auto px-6">
-        <div class="flex flex-col md:flex-row justify-between items-end mb-20 pb-6">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-20 pb-6 animate-on-scroll">
             <h2 class="font-serif text-4xl md:text-5xl text-white">Jejak<br>Prestasi</h2>
             <p class="text-gray-500 text-sm mt-4 md:mt-0 max-w-xs text-right">Klik pada pencapaian untuk melihat dokumentasi foto.</p>
         </div>
@@ -187,7 +231,7 @@
                        // Alternating Layout
                        $isLeft = $index % 2 == 0;
                     @endphp
-                    <div onclick="openModal('{{ $achievement->id }}')" class="relative flex flex-col md:flex-row items-center w-full group cursor-pointer">
+                    <div onclick="openModal('{{ $achievement->id }}')" class="relative flex flex-col md:flex-row items-center w-full group cursor-pointer animate-on-scroll">
                          @if($isLeft)
                             <div class="w-full md:w-1/2 md:pr-12 pl-12 md:pl-0 md:text-right transition duration-300 group-hover:-translate-x-2">
                                 <span class="text-elegant-gold font-bold tracking-widest text-sm">{{ $achievement->year }}</span>
@@ -216,12 +260,12 @@
     <section id="team" class="py-32 bg-elegant-black">
         <div class="container mx-auto px-6 text-center">
             
-            <span class="text-elegant-gold text-xs font-bold tracking-[0.3em] uppercase">Leadership</span>
-            <h2 class="font-serif text-4xl text-white mt-4 mb-16">The Minds Behind</h2>
+            <span class="text-elegant-gold text-xs font-bold tracking-[0.3em] uppercase animate-on-scroll">Leadership</span>
+            <h2 class="font-serif text-4xl text-white mt-4 mb-16 animate-on-scroll">The Minds Behind</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto mb-16">
                 @foreach($leadership as $index => $leader)
-                    <div class="group cursor-pointer {{ $index == 1 ? 'md:-mt-8' : '' }}">
+                    <div class="group cursor-pointer {{ $index == 1 ? 'md:-mt-8' : '' }} animate-on-scroll" style="transition-delay: {{ $index * 150 }}ms;">
                          <div class="relative overflow-hidden mb-6 aspect-[3/4] {{ $index == 1 ? 'shadow-[0_0_30px_rgba(114,0,0,0.2)]' : '' }}">
                             <img src="{{ $leader->gallery->image_path ?? 'https://via.placeholder.com/400x500' }}" alt="{{ $leader->role }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0">
                             @if($index == 1)
@@ -238,7 +282,7 @@
                 @endforeach
             </div>
 
-            <a href="#" class="inline-block px-10 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition duration-300">
+            <a href="{{ route('members.index') }}" class="inline-block px-10 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition duration-300 animate-on-scroll">
                 View All Team
             </a>
 
@@ -346,6 +390,38 @@
         if (e.target === this) {
             closeModal();
         }
+    });
+
+    // Onscroll Animation Observer
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            threshold: 0.15, // Trigger when 15% of element is visible
+            rootMargin: "0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    entry.target.classList.remove('is-hidden');
+                } else {
+                    // Optional: Fade out when scrolling away
+                    // entry.target.classList.remove('is-visible');
+                    // entry.target.classList.add('is-hidden');
+                    
+                    // User requested fade in/fade out, so un-commenting this logic
+                     if (entry.boundingClientRect.y > 0) { 
+                        // Only fade out if scrolling down (element goes up)? 
+                        // Or general fade out? "fade in/fadeout" usually implies bidirectional
+                         entry.target.classList.remove('is-visible');
+                         entry.target.classList.add('is-hidden');
+                     }
+                }
+            });
+        }, observerOptions);
+
+        const activeElements = document.querySelectorAll('.animate-on-scroll');
+        activeElements.forEach(el => observer.observe(el));
     });
 </script>
 </body>

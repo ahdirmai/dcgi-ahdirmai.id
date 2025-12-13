@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', App\Http\Controllers\WelcomeController::class);
+Route::get('/galery', [App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/members', [App\Http\Controllers\MembersController::class, 'index'])->name('members.index');
 
 Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
     ->middleware(['auth', 'verified'])

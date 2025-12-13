@@ -26,6 +26,25 @@ class WelcomeController extends Controller
         
         $leadership = TeamMember::with('gallery')->where('type', 'leadership')->get();
         
-        return view('welcome', compact('vision', 'missions', 'albums', 'achievements', 'leadership'));
+        $structuredData = [
+            "@context" => "https://schema.org",
+            "@type" => "Organization",
+            "name" => "DC Genderang Irama",
+            "alternateName" => "DCGI",
+            "url" => url('/'),
+            "logo" => asset('favicon.ico'),
+            "sameAs" => [
+                "https://www.instagram.com/dcgenderangirama",
+                "https://www.facebook.com/dcgenderangirama",
+                "https://www.youtube.com/@dcgenderangirama"
+            ],
+            "contactPoint" => [
+                "@type" => "ContactPoint",
+                "email" => "join@genderangirama.id",
+                "contactType" => "customer service"
+            ]
+        ];
+
+        return view('welcome', compact('vision', 'missions', 'albums', 'achievements', 'leadership', 'structuredData'));
     }
 }

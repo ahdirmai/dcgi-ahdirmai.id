@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tim Kami - DC Genderang Irama</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-elegant-black font-sans text-elegant-text antialiased selection:bg-elegant-red selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-500 bg-gradient-to-b from-black/90 to-transparent pt-4 pb-2">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="{{ url('/') }}" class="text-2xl font-serif font-bold tracking-widest text-white border-b border-elegant-red pb-1 hover:text-elegant-gold transition duration-300">
+                G<span class="text-elegant-red">I</span>.
+            </a>
+
+            <div class="hidden md:flex space-x-12 text-xs font-medium tracking-[0.2em] uppercase text-gray-400">
+                <a href="{{ url('/#about') }}" class="hover:text-white transition duration-300 relative group">Tentang</a>
+                <a href="{{ url('/#vision') }}" class="hover:text-white transition duration-300 relative group">Visi</a>
+                <a href="{{ route('gallery.index') }}" class="hover:text-white transition duration-300 relative group">Galeri</a>
+                <a href="{{ route('members.index') }}" class="text-white relative group">Tim</a>
+            </div>
+
+            <a href="{{ url('/#contact') }}" class="hidden md:block text-xs font-bold tracking-widest uppercase text-white border border-white/20 px-6 py-2 hover:bg-elegant-red hover:border-elegant-red transition duration-300 rounded-sm">
+                Kontak
+            </a>
+            
+             <div class="md:hidden text-white text-xl cursor-pointer">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="relative h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 to-elegant-black z-10"></div>
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519750783826-e2420f4d687f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center"></div>
+        
+        <div class="relative z-20 text-center px-4">
+            <h1 class="font-serif text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-200 mb-4 animate-fade-up">Tim Kami</h1>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto animate-fade-up delay-200">Individu-individu berdedikasi di balik harmoni DC Genderang Irama.</p>
+        </div>
+    </header>
+
+    <!-- Leadership Section -->
+    <section class="py-20 bg-elegant-black">
+        <div class="container mx-auto px-6 text-center">
+            
+            <span class="text-elegant-gold text-xs font-bold tracking-[0.3em] uppercase">Leadership</span>
+            <h2 class="font-serif text-4xl text-white mt-4 mb-16">The Minds Behind</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto mb-16">
+                @foreach($leadership as $index => $leader)
+                    <div class="group cursor-pointer {{ $index == 1 ? 'md:-mt-8' : '' }}">
+                         <div class="relative overflow-hidden mb-6 aspect-[3/4] {{ $index == 1 ? 'shadow-[0_0_30px_rgba(114,0,0,0.2)]' : '' }}">
+                            <img src="{{ $leader->gallery->image_path ?? 'https://ui-avatars.com/api/?name='.urlencode($leader->name).'&color=7F9CF5&background=EBF4FF' }}" alt="{{ $leader->role }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0">
+                            @if($index == 1)
+                                <div class="absolute bottom-4 right-4 bg-elegant-red w-10 h-10 flex items-center justify-center text-white">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            @elseif($index != 1) 
+                                 <div class="absolute inset-0 border border-white/10 group-hover:border-elegant-red/50 transition duration-500"></div>
+                            @endif
+                        </div>
+                        <h3 class="font-serif text-2xl text-white mb-1">{{ $leader->name }}</h3>
+                        <p class="text-elegant-red text-xs font-bold uppercase tracking-widest">{{ $leader->role }}</p>
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Members List Section -->
+    <section class="py-20 bg-elegant-charcoal border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="font-serif text-3xl text-white">Anggota Tim</h2>
+                <div class="w-16 h-1 bg-elegant-gold mx-auto mt-4"></div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                @foreach($members as $member)
+                    <div class="bg-black/30 p-4 rounded-sm border border-white/5 hover:border-elegant-red/30 transition duration-300 text-center group">
+                        <div class="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden border-2 border-white/10 group-hover:border-elegant-red transition">
+                             <img src="{{ $member->gallery->image_path ?? 'https://ui-avatars.com/api/?name='.urlencode($member->name).'&color=7F9CF5&background=EBF4FF' }}" alt="{{ $member->name }}" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-white font-medium text-sm group-hover:text-elegant-gold transition">{{ $member->name }}</h4>
+                        <p class="text-gray-500 text-xs mt-1">{{ $member->role }}</p>
+                    </div>
+                @endforeach
+            </div>
+
+            @if($members->isEmpty())
+                <p class="text-center text-gray-500">Data anggota belum tersedia.</p>
+            @endif
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-black text-gray-400 py-20 border-t border-gray-900">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center">
+            <h2 class="font-serif text-3xl text-white mb-8">DC Genderang Irama.</h2>
+            <div class="flex space-x-8 mb-10">
+                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-tiktok text-xl"></i></a>
+                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-youtube text-xl"></i></a>
+            </div>
+            <p class="text-xs tracking-widest uppercase mb-2">Join The Legacy</p>
+            <p class="font-serif text-xl text-white mb-8 hover:text-elegant-red transition cursor-pointer">join@genderangirama.id</p>
+            <p class="text-[10px] text-gray-700 uppercase tracking-widest">
+                &copy; {{ date('Y') }} Drum Corps Genderang Irama. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

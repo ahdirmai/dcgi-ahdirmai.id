@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri - DC Genderang Irama</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="bg-elegant-black font-sans text-elegant-text antialiased selection:bg-elegant-red selection:text-white">
+
+    <!-- Navbar (Same as Welcome) -->
+    <nav class="fixed w-full z-50 transition-all duration-500 bg-gradient-to-b from-black/90 to-transparent pt-4 pb-2">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="{{ url('/') }}" class="text-2xl font-serif font-bold tracking-widest text-white border-b border-elegant-red pb-1 hover:text-elegant-gold transition duration-300">
+                G<span class="text-elegant-red">I</span>.
+            </a>
+
+            <div class="hidden md:flex space-x-12 text-xs font-medium tracking-[0.2em] uppercase text-gray-400">
+                <a href="{{ url('/#about') }}" class="hover:text-white transition duration-300 relative group">Tentang</a>
+                <a href="{{ url('/#vision') }}" class="hover:text-white transition duration-300 relative group">Visi</a>
+                <a href="{{ route('gallery.index') }}" class="text-white relative group">Galeri</a>
+                <a href="{{ route('members.index') }}" class="hover:text-white transition duration-300 relative group">Tim</a>
+            </div>
+
+            <a href="{{ url('/#contact') }}" class="hidden md:block text-xs font-bold tracking-widest uppercase text-white border border-white/20 px-6 py-2 hover:bg-elegant-red hover:border-elegant-red transition duration-300 rounded-sm">
+                Kontak
+            </a>
+            
+             <div class="md:hidden text-white text-xl cursor-pointer">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="relative h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 to-elegant-black z-10"></div>
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514525253440-b39345208668?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center"></div>
+        
+        <div class="relative z-20 text-center px-4">
+            <h1 class="font-serif text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-200 mb-4 animate-fade-up">Galeri Kami</h1>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto animate-fade-up delay-200">Momen-momen berharga dari perjalanan kami dalam berkarya dan berprestasi.</p>
+        </div>
+    </header>
+
+    <!-- Gallery Grid -->
+    <section class="py-20 px-4 md:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach ($albums as $album)
+                    <div class="group relative overflow-hidden rounded-xl aspect-[4/3] cursor-pointer">
+                        <img src="{{ $album->cover_image_path }}" alt="{{ $album->title }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80 transition-opacity duration-300"></div>
+                        
+                        <div class="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                            <h3 class="font-serif text-2xl font-bold text-white mb-2">{{ $album->title }}</h3>
+                            <p class="text-gray-300 text-sm line-clamp-2">{{ $album->description }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            @if($albums->isEmpty())
+                <div class="text-center py-12">
+                     <p class="text-gray-400">Belum ada album galeri.</p>
+                </div>
+            @endif
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-black text-gray-400 py-20 border-t border-gray-900">
+        <div class="container mx-auto px-6 flex flex-col items-center text-center">
+            <h2 class="font-serif text-3xl text-white mb-8">DC Genderang Irama.</h2>
+            <div class="flex space-x-8 mb-10">
+                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-instagram text-xl"></i></a>
+                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-tiktok text-xl"></i></a>
+                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-youtube text-xl"></i></a>
+            </div>
+            <p class="text-xs tracking-widest uppercase mb-2">Join The Legacy</p>
+            <p class="font-serif text-xl text-white mb-8 hover:text-elegant-red transition cursor-pointer">join@genderangirama.id</p>
+            <p class="text-[10px] text-gray-700 uppercase tracking-widest">
+                &copy; {{ date('Y') }} Drum Corps Genderang Irama. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
