@@ -1,11 +1,35 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@layer utilities {
+    .text-shadow { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
+    .text-glow { text-shadow: 0 0 20px rgba(165, 0, 0, 0.5); }
+    
+    .glass-panel {
+        background: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    .glass-nav {
+         background: rgba(15, 15, 15, 0.7);
+         backdrop-filter: blur(10px);
+         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .animate-fade-up { animation: fadeInUp 1.2s ease-out forwards; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-400 { animation-delay: 0.4s; }
 }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #720000; border-radius: 4px; }

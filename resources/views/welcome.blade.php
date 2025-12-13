@@ -5,59 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DC Genderang Irama - MAN 2 MODEL BANJARMASIN</title>
     
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        elegant: {
-                            black: '#050505',
-                            charcoal: '#0F0F0F',
-                            red: '#720000',       
-                            redlight: '#A50000',
-                            gold: '#C5A059',      
-                            text: '#E0E0E0'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    }
-                }
-            }
-        }
-    </script>
 
-    <style>
-        /* Custom Utilities */
-        .text-shadow { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
-        .text-glow { text-shadow: 0 0 20px rgba(165, 0, 0, 0.5); }
-        
-        .glass-panel {
-            background: rgba(20, 20, 20, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-up { animation: fadeInUp 1.2s ease-out forwards; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-400 { animation-delay: 0.4s; }
 
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #720000; border-radius: 4px; }
-    </style>
 </head>
 <body class="font-sans bg-elegant-black text-elegant-text antialiased selection:bg-elegant-red selection:text-white">
 
@@ -160,20 +116,18 @@
                 <div class="glass-panel p-10 rounded-sm hover:border-elegant-red/50 transition duration-500 group">
                     <h3 class="font-serif text-2xl text-white mb-6 italic group-hover:text-elegant-red transition">"Our Vision"</h3>
                     <p class="text-gray-300 font-light leading-relaxed italic border-l-2 border-elegant-gold pl-6">
-                        Menjadi tim Drum Corps Genderang Irama yang berprestasi, profesional, dan berdaya saing tinggi.
+                        {{ $vision?->content ?? 'No Vision Set' }}
                     </p>
                 </div>
                 <div class="glass-panel p-10 rounded-sm hover:border-elegant-red/50 transition duration-500">
                     <h3 class="font-serif text-2xl text-white mb-6 italic">"Our Mission"</h3>
                     <ul class="space-y-4">
+                        @foreach($missions as $index => $mission)
                         <li class="flex items-start group">
-                            <span class="text-elegant-red mr-4 text-xs mt-1 group-hover:text-white transition">01</span>
-                            <p class="text-gray-400 font-light text-sm leading-relaxed">Mengembangkan potensi anggota dalam bidang musik.</p>
+                            <span class="text-elegant-red mr-4 text-xs mt-1 group-hover:text-white transition">{{ sprintf('%02d', $index + 1) }}</span>
+                            <p class="text-gray-400 font-light text-sm leading-relaxed">{{ $mission->content }}</p>
                         </li>
-                        <li class="flex items-start group">
-                            <span class="text-elegant-red mr-4 text-xs mt-1 group-hover:text-white transition">02</span>
-                            <p class="text-gray-400 font-light text-sm leading-relaxed">Menanamkan nilai disiplin dan tanggung jawab.</p>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
@@ -192,33 +146,22 @@
 
             <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[600px]">
                 
-                <div class="md:col-span-2 md:row-span-2 group relative overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://picsum.photos/800/800?grayscale&random=1" alt="Show" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
-                        <span class="text-white font-serif italic text-xl">Grand Prix Final</span>
+                @foreach($albums as $index => $album)
+                    @php
+                        // Logic to mimic the grid layout (2 span for first item, etc if desired, or just list them)
+                        // Original had 4 items: 1st is col-span-2 row-span-2. 2nd is col-1 row-2. 3rd co-1 row-1. 4th col-1 row-1.
+                        // We can just loop and apply classes based on index.
+                        $classes = 'md:col-span-1 md:row-span-1';
+                        if ($index == 0) $classes = 'md:col-span-2 md:row-span-2';
+                        if ($index == 1) $classes = 'md:col-span-1 md:row-span-2';
+                    @endphp
+                    <div class="{{ $classes }} group relative overflow-hidden rounded-sm cursor-pointer">
+                        <img src="{{ $album->cover_image_path }}" alt="{{ $album->title }}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:grayscale-0">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
+                            <span class="text-white font-serif italic text-xl">{{ $album->title }}</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="md:col-span-1 md:row-span-2 group relative overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://picsum.photos/400/800?grayscale&random=2" alt="Brass" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
-                        <span class="text-white font-serif italic text-xl">Brassline</span>
-                    </div>
-                </div>
-
-                <div class="md:col-span-1 md:row-span-1 group relative overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://picsum.photos/400/400?grayscale&random=3" alt="Drum" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
-                        <span class="text-white font-serif italic text-xl">Percussion</span>
-                    </div>
-                </div>
-
-                <div class="md:col-span-1 md:row-span-1 group relative overflow-hidden rounded-sm cursor-pointer">
-                    <img src="https://picsum.photos/400/400?grayscale&random=4" alt="Guard" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:grayscale-0">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-6">
-                        <span class="text-white font-serif italic text-xl">Color Guard</span>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
             
@@ -239,45 +182,31 @@
             <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-[1px] bg-gradient-to-b from-elegant-red via-gray-800 to-transparent"></div>
             <div class="space-y-16">
                 
-                <div onclick="openModal('2017')" class="relative flex flex-col md:flex-row items-center w-full group cursor-pointer">
-                    <div class="w-full md:w-1/2 md:pr-12 pl-12 md:pl-0 md:text-right transition duration-300 group-hover:-translate-x-2">
-                        <span class="text-elegant-gold font-bold tracking-widest text-sm">2017</span>
-                        <h3 class="font-serif text-2xl text-white mt-1 group-hover:text-elegant-red transition">2nd Runner Up <i class="fa-solid fa-camera text-xs ml-2 opacity-0 group-hover:opacity-100 transition"></i></h3>
-                        <p class="text-gray-500 text-sm mt-2">JOMC (International Level)</p>
+                @foreach($achievements as $index => $achievement)
+                    @php
+                       // Alternating Layout
+                       $isLeft = $index % 2 == 0;
+                    @endphp
+                    <div onclick="openModal('{{ $achievement->id }}')" class="relative flex flex-col md:flex-row items-center w-full group cursor-pointer">
+                         @if($isLeft)
+                            <div class="w-full md:w-1/2 md:pr-12 pl-12 md:pl-0 md:text-right transition duration-300 group-hover:-translate-x-2">
+                                <span class="text-elegant-gold font-bold tracking-widest text-sm">{{ $achievement->year }}</span>
+                                <h3 class="font-serif text-2xl text-white mt-1 group-hover:text-elegant-red transition">{{ $achievement->title }} <i class="fa-solid fa-camera text-xs ml-2 opacity-0 group-hover:opacity-100 transition"></i></h3>
+                                <p class="text-gray-500 text-sm mt-2">{{ $achievement->description }}</p>
+                            </div>
+                            <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black border border-elegant-red rounded-full z-10 group-hover:scale-150 group-hover:bg-elegant-red transition duration-300 shadow-[0_0_10px_rgba(216,0,50,0.5)]"></div>
+                            <div class="hidden md:block w-1/2"></div>
+                        @else
+                            <div class="hidden md:block w-1/2"></div>
+                            <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black border border-white rounded-full z-10 group-hover:scale-150 group-hover:bg-white transition duration-300"></div>
+                            <div class="w-full md:w-1/2 pl-12 transition duration-300 group-hover:translate-x-2">
+                                <span class="text-gray-400 font-bold tracking-widest text-sm">{{ $achievement->year }}</span>
+                                <h3 class="font-serif text-2xl text-white mt-1 group-hover:text-elegant-red transition">{{ $achievement->title }} <i class="fa-solid fa-camera text-xs ml-2 opacity-0 group-hover:opacity-100 transition"></i></h3>
+                                <p class="text-gray-500 text-sm mt-2">{{ $achievement->description }}</p>
+                            </div>
+                        @endif
                     </div>
-                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black border border-elegant-red rounded-full z-10 group-hover:scale-150 group-hover:bg-elegant-red transition duration-300 shadow-[0_0_10px_rgba(216,0,50,0.5)]"></div>
-                    <div class="hidden md:block w-1/2"></div>
-                </div>
-
-                <div onclick="openModal('2020')" class="relative flex flex-col md:flex-row items-center w-full group cursor-pointer">
-                    <div class="hidden md:block w-1/2"></div>
-                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black border border-white rounded-full z-10 group-hover:scale-150 group-hover:bg-white transition duration-300"></div>
-                    <div class="w-full md:w-1/2 pl-12 transition duration-300 group-hover:translate-x-2">
-                        <span class="text-gray-400 font-bold tracking-widest text-sm">2020</span>
-                        <h3 class="font-serif text-2xl text-white mt-1 group-hover:text-elegant-red transition">1st Brass Battle <i class="fa-solid fa-camera text-xs ml-2 opacity-0 group-hover:opacity-100 transition"></i></h3>
-                        <p class="text-gray-500 text-sm mt-2">Borneo Marching Day</p>
-                    </div>
-                </div>
-
-                <div onclick="openModal('2025')" class="relative flex flex-col md:flex-row items-center w-full group cursor-pointer">
-                    <div class="w-full md:w-1/2 md:pr-12 pl-12 md:pl-0 md:text-right transition duration-300 group-hover:-translate-x-2">
-                        <span class="text-elegant-gold font-bold tracking-widest text-sm">2025</span>
-                        <h3 class="font-serif text-2xl text-white mt-1 group-hover:text-elegant-red transition">2nd Place Winner <i class="fa-solid fa-camera text-xs ml-2 opacity-0 group-hover:opacity-100 transition"></i></h3>
-                        <p class="text-gray-500 text-sm mt-2">Konser Borneo Marching Day</p>
-                    </div>
-                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black border border-elegant-red rounded-full z-10 group-hover:scale-150 group-hover:bg-elegant-red transition duration-300 shadow-[0_0_10px_rgba(216,0,50,0.5)]"></div>
-                    <div class="hidden md:block w-1/2"></div>
-                </div>
-
-                <div onclick="openModal('2026')" class="relative flex flex-col md:flex-row items-center w-full group cursor-pointer">
-                    <div class="hidden md:block w-1/2"></div>
-                    <div class="absolute left-4 md:left-1/2 transform -translate-x-1/2 w-3 h-3 bg-black border border-white rounded-full z-10 group-hover:scale-150 group-hover:bg-white transition duration-300"></div>
-                    <div class="w-full md:w-1/2 pl-12 transition duration-300 group-hover:translate-x-2">
-                        <span class="text-gray-400 font-bold tracking-widest text-sm">2026</span>
-                        <h3 class="font-serif text-2xl text-white mt-1 group-hover:text-elegant-red transition">2nd Winner <i class="fa-solid fa-camera text-xs ml-2 opacity-0 group-hover:opacity-100 transition"></i></h3>
-                        <p class="text-gray-500 text-sm mt-2">Wali Kota Cup</p>
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
@@ -291,36 +220,22 @@
             <h2 class="font-serif text-4xl text-white mt-4 mb-16">The Minds Behind</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto mb-16">
-                
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-6 aspect-[3/4]">
-                        <img src="https://picsum.photos/400/500?grayscale&random=10" alt="Director" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0">
-                        <div class="absolute inset-0 border border-white/10 group-hover:border-elegant-red/50 transition duration-500"></div>
-                    </div>
-                    <h3 class="font-serif text-2xl text-white mb-1">John Doe</h3>
-                    <p class="text-elegant-red text-xs font-bold uppercase tracking-widest">Band Director</p>
-                </div>
-
-                <div class="group cursor-pointer md:-mt-8">
-                    <div class="relative overflow-hidden mb-6 aspect-[3/4] shadow-[0_0_30px_rgba(114,0,0,0.2)]">
-                        <img src="https://picsum.photos/400/500?grayscale&random=11" alt="Field Commander" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0">
-                        <div class="absolute bottom-4 right-4 bg-elegant-red w-10 h-10 flex items-center justify-center text-white">
-                            <i class="fa-solid fa-star"></i>
+                @foreach($leadership as $index => $leader)
+                    <div class="group cursor-pointer {{ $index == 1 ? 'md:-mt-8' : '' }}">
+                         <div class="relative overflow-hidden mb-6 aspect-[3/4] {{ $index == 1 ? 'shadow-[0_0_30px_rgba(114,0,0,0.2)]' : '' }}">
+                            <img src="{{ $leader->gallery->image_path ?? 'https://via.placeholder.com/400x500' }}" alt="{{ $leader->role }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0">
+                            @if($index == 1)
+                                <div class="absolute bottom-4 right-4 bg-elegant-red w-10 h-10 flex items-center justify-center text-white">
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            @elseif($index != 1) 
+                                 <div class="absolute inset-0 border border-white/10 group-hover:border-elegant-red/50 transition duration-500"></div>
+                            @endif
                         </div>
+                        <h3 class="font-serif text-2xl text-white mb-1">{{ $leader->name }}</h3>
+                        <p class="text-elegant-red text-xs font-bold uppercase tracking-widest">{{ $leader->role }}</p>
                     </div>
-                    <h3 class="font-serif text-2xl text-white mb-1">Jane Smith</h3>
-                    <p class="text-elegant-red text-xs font-bold uppercase tracking-widest">Field Commander</p>
-                </div>
-
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden mb-6 aspect-[3/4]">
-                        <img src="https://picsum.photos/400/500?grayscale&random=12" alt="Chairman" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0">
-                        <div class="absolute inset-0 border border-white/10 group-hover:border-elegant-red/50 transition duration-500"></div>
-                    </div>
-                    <h3 class="font-serif text-2xl text-white mb-1">Michael Tan</h3>
-                    <p class="text-elegant-red text-xs font-bold uppercase tracking-widest">Corps Commander</p>
-                </div>
-
+                @endforeach
             </div>
 
             <a href="#" class="inline-block px-10 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition duration-300">
@@ -374,45 +289,14 @@
 
 
 <script>
-    // Data Dummy untuk setiap prestasi (Bisa diganti dengan foto asli nanti)
-    const achievementData = {
-        '2017': {
-            title: "2nd Runner Up - JOMC 2017",
-            desc: "Jember Open Marching Competition - International Level",
-            images: [
-                "https://picsum.photos/600/400?grayscale&random=20",
-                "https://picsum.photos/600/400?grayscale&random=21",
-                "https://picsum.photos/600/400?grayscale&random=22"
-            ]
-        },
-        '2020': {
-            title: "1st Brass Battle - BMD 2020",
-            desc: "Borneo Marching Day - Brassline Category",
-            images: [
-                "https://picsum.photos/600/400?grayscale&random=23",
-                "https://picsum.photos/600/400?grayscale&random=24",
-                "https://picsum.photos/600/400?grayscale&random=25"
-            ]
-        },
-        '2025': {
-            title: "2nd Place Winner - BMD 2025",
-            desc: "Konser Borneo Marching Day - Full Band",
-            images: [
-                "https://picsum.photos/600/400?grayscale&random=26",
-                "https://picsum.photos/600/400?grayscale&random=27",
-                "https://picsum.photos/600/400?grayscale&random=28"
-            ]
-        },
-        '2026': {
-            title: "2nd Winner - Wali Kota Cup",
-            desc: "Kejuaraan Tingkat Kota - Display Category",
-            images: [
-                "https://picsum.photos/600/400?grayscale&random=29",
-                "https://picsum.photos/600/400?grayscale&random=30",
-                "https://picsum.photos/600/400?grayscale&random=31"
-            ]
-        }
-    };
+    // Data Dummy replaced by Database Data
+    const achievementData = {!! json_encode($achievements->keyBy('id')->map(function($item) {
+        return [
+            'title' => $item->title,
+            'desc' => $item->description,
+            'images' => $item->galleries->pluck('image_path')
+        ];
+    })) !!};
 
     function openModal(year) {
         const data = achievementData[year];
