@@ -27,6 +27,9 @@
                     <x-nav-link :href="route('admin.team.index')" :active="request()->routeIs('admin.team.*')">
                         {{ __('Team') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.site-content.index')" :active="request()->routeIs('admin.site-content.*')">
+                        {{ __('Site Content') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -93,6 +96,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.team.index')" :active="request()->routeIs('admin.team.*')">
                 {{ __('Team') }}
+            </x-responsive-nav-link>
+             <x-responsive-nav-link :href="route('admin.site-content.index')" :active="request()->routeIs('admin.site-content.*')">
+                {{ __('Site Content') }}
             </x-responsive-nav-link>
         </div>
 

@@ -41,6 +41,14 @@
                     </div>
                 </a>
 
+                <!-- Site Content Card -->
+                <a href="{{ route('admin.site-content.index') }}" class="block p-6 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg hover:shadow-md transition">
+                    <div class="text-gray-900 dark:text-gray-100">
+                        <h3 class="text-lg font-semibold mb-2">{{ __('Site Content') }}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Manage homepage hero and about sections.') }}</p>
+                    </div>
+                </a>
+
             </div>
         </div>
     </div>

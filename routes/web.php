@@ -17,6 +17,11 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     Route::resource('achievements', App\Http\Controllers\Admin\AchievementController::class);
     Route::resource('achievements', App\Http\Controllers\Admin\AchievementController::class);
     
+    Route::get('site-content', [App\Http\Controllers\Admin\SiteContentController::class, 'index'])->name('site-content.index');
+    Route::patch('site-content', [App\Http\Controllers\Admin\SiteContentController::class, 'update'])->name('site-content.update');
+    Route::post('site-content/sponsor', [App\Http\Controllers\Admin\SiteContentController::class, 'storeSponsor'])->name('site-content.sponsor.store');
+    Route::delete('site-content/sponsor/{id}', [App\Http\Controllers\Admin\SiteContentController::class, 'destroySponsor'])->name('site-content.sponsor.destroy');
+    
     Route::get('team/template', [App\Http\Controllers\Admin\TeamMemberController::class, 'downloadTemplate'])->name('team.template');
     Route::post('team/import', [App\Http\Controllers\Admin\TeamMemberController::class, 'import'])->name('team.import');
     Route::resource('team', App\Http\Controllers\Admin\TeamMemberController::class);

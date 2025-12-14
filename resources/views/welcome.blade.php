@@ -86,9 +86,22 @@
 
     <header class="relative h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="https://picsum.photos/1920/1080?grayscale&blur=2" alt="Hero Background" class="w-full h-full object-cover opacity-60 scale-105 animate-[pulse_10s_ease-in-out_infinite]">
-            <div class="absolute inset-0 bg-gradient-to-t from-elegant-black via-elegant-black/80 to-elegant-red/10 mix-blend-multiply"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-elegant-black"></div>
+            @php
+                $heroType = $siteContent['hero_background_type']->content ?? 'image';
+                $heroUrl = $siteContent['hero_background_url']->content ?? 'https://picsum.photos/1920/1080?grayscale&blur=2';
+            @endphp
+
+            @if($heroType == 'video')
+                <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80 scale-105">
+                    <source src="{{ asset($heroUrl) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            @else
+                <img src="{{ Str::startsWith($heroUrl, 'http') ? $heroUrl : asset($heroUrl) }}" alt="Hero Background" class="w-full h-full object-cover opacity-70 scale-105 animate-[pulse_10s_ease-in-out_infinite]">
+            @endif
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-elegant-black via-elegant-black/60 to-elegant-red/10 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-elegant-black/90"></div>
         </div>
 
         <div class="container mx-auto px-6 relative z-10 text-center">
@@ -137,7 +150,10 @@
                 <div class="lg:w-1/2 order-1 lg:order-2 relative animate-on-scroll">
                     <div class="absolute -top-4 -right-4 w-full h-full border border-elegant-red/30 z-0"></div>
                     <div class="relative z-10 overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-                        <img src="https://picsum.photos/600/800?grayscale" alt="Marching Art" class="w-full grayscale hover:grayscale-0 transition duration-1000 ease-in-out transform hover:scale-105">
+                        @php
+                            $aboutUrl = $siteContent['about_image_url']->content ?? 'https://picsum.photos/600/800?grayscale';
+                        @endphp
+                        <img src="{{ Str::startsWith($aboutUrl, 'http') ? $aboutUrl : asset($aboutUrl) }}" alt="Marching Art" class="w-full grayscale hover:grayscale-0 transition duration-1000 ease-in-out transform hover:scale-105">
                         <div class="absolute bottom-0 left-0 bg-elegant-red/90 p-4">
                             <i class="fa-solid fa-music text-white text-xl"></i>
                         </div>
@@ -289,18 +305,71 @@
         </div>
     </section>
 
+    </section>
+
+    <!-- Sponsorship Section -->
+    <section class="py-20 bg-elegant-black border-t border-white/5 overflow-hidden">
+        <div class="container mx-auto px-6 mb-12 text-center animate-on-scroll">
+            <h3 class="text-xs font-bold text-gray-500 tracking-[0.3em] uppercase">Supported By</h3>
+        </div>
+        
+        <div class="relative flex overflow-x-hidden group">
+            <div class="animate-marquee whitespace-nowrap flex space-x-16 items-center">
+                @foreach(range(1, 4) as $i)
+                    @foreach($sponsorships as $sponsor)
+                        <div class="flex-shrink-0">
+                            <img src="{{ asset($sponsor->content) }}" class="h-12 md:h-14 w-auto grayscale opacity-40 hover:opacity-100 hover:grayscale-0 transition duration-500 hover:scale-110" style="filter: brightness(0) invert(1);">
+                        </div>
+                    @endforeach
+                @endforeach
+            </div>
+
+            <!-- Left Fade -->
+            <div class="absolute top-0 left-0 w-32 h-full bg-gradient-to-r from-elegant-black to-transparent z-10"></div>
+            <!-- Right Fade -->
+            <div class="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-elegant-black to-transparent z-10"></div>
+        </div>
+
+        @if($sponsorships->isEmpty())
+             <div class="text-center text-gray-600 text-sm italic mt-8">
+                Sponsors will appear here.
+            </div>
+        @endif
+        
+        <style>
+            .animate-marquee {
+                animation: marquee 40s linear infinite;
+            }
+            .group:hover .animate-marquee {
+                animation-play-state: paused;
+            }
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); } 
+            }
+        </style>
+    </section>
+
     <footer id="contact" class="bg-black text-gray-400 py-20 border-t border-gray-900">
         <div class="container mx-auto px-6 flex flex-col items-center text-center">
             <h2 class="font-serif text-3xl text-white mb-8">DC Genderang Irama.</h2>
             <div class="flex space-x-8 mb-10">
-                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-instagram text-xl"></i></a>
-                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-tiktok text-xl"></i></a>
-                <a href="#" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-youtube text-xl"></i></a>
+                @if(isset($socials['instagram']))
+                    <a href="{{ $socials['instagram']->content }}" target="_blank" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-instagram text-xl"></i></a>
+                @endif
+                @if(isset($socials['tiktok']))
+                     <a href="{{ $socials['tiktok']->content }}" target="_blank" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-tiktok text-xl"></i></a>
+                @endif
+                @if(isset($socials['youtube']))
+                    <a href="{{ $socials['youtube']->content }}" target="_blank" class="hover:text-elegant-red transition transform hover:-translate-y-1"><i class="fa-brands fa-youtube text-xl"></i></a>
+                @endif
             </div>
             <p class="text-xs tracking-widest uppercase mb-2">Join The Legacy</p>
-            <p class="font-serif text-xl text-white mb-8 hover:text-elegant-red transition cursor-pointer">join@genderangirama.id</p>
+            <p class="font-serif text-xl text-white mb-8 hover:text-elegant-red transition cursor-pointer">
+                {{ $socials['email']->content ?? 'join@genderangirama.id' }}
+            </p>
             <p class="text-[10px] text-gray-700 uppercase tracking-widest">
-                &copy; 2025 Drum Corps Genderang Irama. All Rights Reserved.
+                &copy; {{ date('Y') }} Drum Corps Genderang Irama. All Rights Reserved.
             </p>
         </div>
     </footer>

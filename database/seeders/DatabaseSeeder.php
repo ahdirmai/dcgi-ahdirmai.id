@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             AlbumSeeder::class,
             AchievementSeeder::class,
             TeamMemberSeeder::class,
+            SiteContentSeeder::class,
         ]);
     }
 }

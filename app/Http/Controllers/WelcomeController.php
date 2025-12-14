@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Achievement;
 use App\Models\Album;
 use App\Models\Mission;
+use App\Models\SiteContent;
 use App\Models\TeamMember;
 use App\Models\Vision;
 use Illuminate\Http\Request;
@@ -19,32 +20,52 @@ class WelcomeController extends Controller
         $vision = Vision::first();
         $missions = Mission::all();
         // Get 4 latest albums for the grid
-        $albums = Album::latest()->take(4)->get(); 
-        
+        $albums = Album::latest()->take(4)->get();
+
         $achievements = Achievement::with('galleries')->orderBy('year', 'asc')->get();
         // Group achievements by year if needed, or just pass them. Frontend loop iterates them.
-        
+
         $leadership = TeamMember::with('gallery')->where('type', 'leadership')->get();
-        
+
         $structuredData = [
-            "@context" => "https://schema.org",
-            "@type" => "Organization",
-            "name" => "DC Genderang Irama",
-            "alternateName" => "DCGI",
-            "url" => url('/'),
-            "logo" => asset('favicon.ico'),
-            "sameAs" => [
-                "https://www.instagram.com/dcgenderangirama",
-                "https://www.facebook.com/dcgenderangirama",
-                "https://www.youtube.com/@dcgenderangirama"
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => 'DC Genderang Irama',
+            'alternateName' => 'DCGI',
+            'url' => url('/'),
+            'logo' => asset('favicon.ico'),
+            'sameAs' => [
+                'https://www.instagram.com/dcgenderangirama',
+                'https://www.facebook.com/dcgenderangirama',
+                'https://www.youtube.com/@dcgenderangirama',
             ],
-            "contactPoint" => [
-                "@type" => "ContactPoint",
-                "email" => "join@genderangirama.id",
-                "contactType" => "customer service"
-            ]
+            'contactPoint' => [
+                '@type' => 'ContactPoint',
+                'email' => 'join@genderangirama.id',
+                'contactType' => 'customer service',
+            ],
         ];
 
-        return view('welcome', compact('vision', 'missions', 'albums', 'achievements', 'leadership', 'structuredData'));
+        $siteContent = SiteContent::all()->keyBy(function ($item) {
+            return $item->section.'_'.$item->key;
+        });
+
+        $sponsorships = SiteContent::where('section', 'sponsorship')->get();
+        $socials = SiteContent::where('section', 'social')->get()->keyBy('key');
+
+        // Update Structured Data with dynamic social links
+        $structuredData['sameAs'] = [
+            $socials['instagram']->content ?? 'https://www.instagram.com/dcgenderangirama',
+            'https://www.facebook.com/dcgenderangirama', // Facebook not in requirements, keeping static or ignore? User didn't ask for FB.
+            $socials['youtube']->content ?? 'https://www.youtube.com/@dcgenderangirama',
+            $socials['tiktok']->content ?? '', // Add TikTok if available
+        ];
+        // Filter out empty
+        $structuredData['sameAs'] = array_filter($structuredData['sameAs']);
+
+        $structuredData['contactPoint']['email'] = $socials['email']->content ?? 'join@genderangirama.id';
+
+        return view('welcome', compact('vision', 'missions', 'albums', 'achievements', 'leadership', 'structuredData', 'siteContent', 'sponsorships', 'socials'));
+
     }
 }
