@@ -1,52 +1,59 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create Achievement') }}
-        </h2>
+        {{ __('Create Achievement') }}
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    
-                    <form action="{{ route('admin.achievements.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
-                        @csrf
+    <div class="max-w-3xl mx-auto p-6 bg-elegant-charcoal shadow-lg sm:rounded-sm border border-white/5">
+        <h3 class="text-lg font-medium text-white font-serif italic mb-6 border-b border-white/10 pb-2">{{ __('New Achievement Details') }}</h3>
+        
+        <form action="{{ route('admin.achievements.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            @csrf
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <x-input-label for="year" :value="__('Year')" />
-                                <x-text-input id="year" name="year" type="number" class="mt-1 block w-full" :value="old('year')" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('year')" />
-                            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Year -->
+                <div>
+                    <x-input-label for="year" :value="__('Year')" class="text-gray-400" />
+                    <x-text-input id="year" name="year" type="number" 
+                        class="mt-1 block w-full bg-black/20 border-white/10 text-gray-300 focus:border-elegant-gold focus:ring-elegant-gold rounded-sm" 
+                        :value="old('year')" required />
+                    <x-input-error class="mt-2 text-red-400" :messages="$errors->get('year')" />
+                </div>
 
-                            <div>
-                                <x-input-label for="title" :value="__('Title')" />
-                                <x-text-input id="title" name="title" type="text" class="mt-1 block w-full" :value="old('title')" required />
-                                <x-input-error class="mt-2" :messages="$errors->get('title')" />
-                            </div>
-                        </div>
-
-                        <div>
-                            <x-input-label for="description" :value="__('Description / Category')" />
-                            <x-text-input id="description" name="description" type="text" class="mt-1 block w-full" :value="old('description')" />
-                            <x-input-error class="mt-2" :messages="$errors->get('description')" />
-                        </div>
-
-                        <div>
-                            <x-input-label for="images" :value="__('Gallery Images (Multiple)')" />
-                            <input id="images" name="images[]" type="file" multiple class="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" accept="image/*">
-                            <x-input-error class="mt-2" :messages="$errors->get('images')" />
-                        </div>
-
-                        <div class="flex items-center gap-4">
-                            <x-primary-button>{{ __('Create Achievement') }}</x-primary-button>
-                            <a href="{{ route('admin.achievements.index') }}" class="text-gray-600 dark:text-gray-400 hover:underline">Cancel</a>
-                        </div>
-                    </form>
-
+                <!-- Title -->
+                <div>
+                    <x-input-label for="title" :value="__('Title')" class="text-gray-400" />
+                    <x-text-input id="title" name="title" type="text" 
+                        class="mt-1 block w-full bg-black/20 border-white/10 text-gray-300 focus:border-elegant-gold focus:ring-elegant-gold rounded-sm" 
+                        :value="old('title')" required />
+                    <x-input-error class="mt-2 text-red-400" :messages="$errors->get('title')" />
                 </div>
             </div>
-        </div>
+
+            <!-- Description -->
+            <div>
+                <x-input-label for="description" :value="__('Description / Category')" class="text-gray-400" />
+                <x-text-input id="description" name="description" type="text" 
+                    class="mt-1 block w-full bg-black/20 border-white/10 text-gray-300 focus:border-elegant-gold focus:ring-elegant-gold rounded-sm" 
+                    :value="old('description')" />
+                <x-input-error class="mt-2 text-red-400" :messages="$errors->get('description')" />
+            </div>
+
+            <!-- Images -->
+            <div>
+                <x-input-label for="images" :value="__('Gallery Images (Multiple)')" class="text-gray-400" />
+                <input id="images" name="images[]" type="file" multiple 
+                    class="mt-1 block w-full text-sm text-gray-400 border border-white/10 rounded-sm cursor-pointer bg-black/20 focus:outline-none file:mr-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-xs file:font-semibold file:bg-elegant-gold file:text-black hover:file:bg-yellow-600" 
+                    accept="image/*">
+                <x-input-error class="mt-2 text-red-400" :messages="$errors->get('images')" />
+            </div>
+
+            <div class="flex items-center gap-4 pt-4 border-t border-white/10">
+                <button type="submit" class="bg-elegant-gold text-black hover:bg-yellow-600 font-bold py-2 px-6 rounded-sm transition text-sm uppercase tracking-wider">
+                    {{ __('Create Achievement') }}
+                </button>
+                <a href="{{ route('admin.achievements.index') }}" class="text-gray-500 hover:text-white transition text-sm">Cancel</a>
+            </div>
+        </form>
+
     </div>
-</x-app-layout>
+</x-admin-layout>
