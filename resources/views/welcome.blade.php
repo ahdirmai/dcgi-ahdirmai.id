@@ -369,7 +369,7 @@
                 {{ $socials['email']->content ?? 'join@genderangirama.id' }}
             </p>
             <p class="text-[10px] text-gray-700 uppercase tracking-widest">
-                &copy; {{ date('Y') }} Drum Corps Genderang Irama. All Rights Reserved.
+                &copy; {{ date('Y') }} Drum Corps Genderang Irama - Build by <a href="https://ahdirmai.id" target="_blank" class="text-elegant-red hover:text-elegant-red transition">Ahdirmai</a>. All Rights Reserved.
             </p>
         </div>
     </footer>
