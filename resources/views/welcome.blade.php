@@ -318,7 +318,7 @@
                 @foreach(range(1, 4) as $i)
                     @foreach($sponsorships as $sponsor)
                         <div class="flex-shrink-0">
-                            <img src="{{ asset($sponsor->content) }}" class="h-12 md:h-14 w-auto grayscale opacity-40 hover:opacity-100 hover:grayscale-0 transition duration-500 hover:scale-110" style="filter: brightness(0) invert(1);">
+                            <img src="{{ asset($sponsor->content) }}" class="h-12 md:h-14 w-auto grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition duration-500 hover:scale-110">
                         </div>
                     @endforeach
                 @endforeach
