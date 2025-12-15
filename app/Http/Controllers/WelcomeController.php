@@ -27,6 +27,27 @@ class WelcomeController extends Controller
 
         $leadership = TeamMember::with('gallery')->where('type', 'leadership')->get();
 
+        // Reorder leadership to put the starred member in the middle
+        if ($leadership->count() >= 3) {
+            $starMember = $leadership->firstWhere('star', true);
+            if ($starMember) {
+                $others = $leadership->reject(function ($member) use ($starMember) {
+                    return $member->is($starMember);
+                });
+
+                // Calculate the middle index for the new collection (others + star member)
+                // The new collection will have the same count as the original.
+                // User requested star always at position 2 (index 1)
+                $targetIndex = 1;
+
+                $newLeadership = $others->splice(0, $targetIndex);
+                $newLeadership->push($starMember);
+                $newLeadership = $newLeadership->merge($others);
+
+                $leadership = $newLeadership;
+            }
+        }
+
         $structuredData = [
             '@context' => 'https://schema.org',
             '@type' => 'Organization',

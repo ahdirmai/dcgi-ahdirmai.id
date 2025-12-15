@@ -12,6 +12,7 @@ class AchievementController extends Controller
     public function index()
     {
         $achievements = Achievement::with('galleries')->latest()->get();
+
         return view('admin.achievements.index', compact('achievements'));
     }
 
@@ -35,8 +36,8 @@ class AchievementController extends Controller
             foreach ($request->file('images') as $image) {
                 $path = $image->store('achievements', 'public');
                 $achievement->galleries()->create([
-                    'image_path' => '/storage/' . $path,
-                    'caption' => $achievement->title . ' Image'
+                    'image_path' => '/storage/'.$path,
+                    'caption' => $achievement->title.' Image',
                 ]);
             }
         }
@@ -47,6 +48,7 @@ class AchievementController extends Controller
     public function edit(Achievement $achievement)
     {
         $achievement->load('galleries');
+
         return view('admin.achievements.edit', compact('achievement'));
     }
 
@@ -65,8 +67,8 @@ class AchievementController extends Controller
             foreach ($request->file('images') as $image) {
                 $path = $image->store('achievements', 'public');
                 $achievement->galleries()->create([
-                    'image_path' => '/storage/' . $path,
-                    'caption' => $achievement->title . ' Image'
+                    'image_path' => '/storage/'.$path,
+                    'caption' => $achievement->title.' Image',
                 ]);
             }
         }
@@ -82,6 +84,7 @@ class AchievementController extends Controller
             $gallery->delete();
         }
         $achievement->delete();
+
         return redirect()->route('admin.achievements.index')->with('success', 'Achievement deleted successfully.');
     }
 }

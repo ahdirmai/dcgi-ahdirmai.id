@@ -281,18 +281,18 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto mb-16">
                 @foreach($leadership as $index => $leader)
-                    <div class="group cursor-pointer {{ $index == 1 ? 'md:-mt-8' : '' }} animate-on-scroll" style="transition-delay: {{ $index * 150 }}ms;">
-                         <div class="relative overflow-hidden mb-6 aspect-[3/4] {{ $index == 1 ? 'shadow-[0_0_30px_rgba(114,0,0,0.2)]' : '' }}">
-                            <img src="{{ $leader->gallery->image_path ?? 'https://via.placeholder.com/400x500' }}" alt="{{ $leader->role }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-105 group-hover:grayscale-0">
-                            @if($index == 1)
+                    <div class="group cursor-pointer {{ $leader->star ? 'md:-mt-8' : '' }} animate-on-scroll transition-all duration-300 hover:transform hover:scale-105" style="transition-delay: {{ $index * 150 }}ms;">
+                         <div class="relative overflow-hidden mb-6 aspect-[3/4] {{ $leader->star ? 'shadow-[0_0_30px_rgba(114,0,0,0.2)]' : '' }}">
+                            <img src="{{ $leader->gallery?->image_path ?? 'https://ui-avatars.com/api/?name='.urlencode($leader->name).'&color=7F9CF5&background=EBF4FF' }}" alt="{{ $leader->role }}" class="w-full h-full object-cover transition duration-500 group-hover:scale-110 group-hover:grayscale-0">
+                            @if($leader->star)
                                 <div class="absolute bottom-4 right-4 bg-elegant-red w-10 h-10 flex items-center justify-center text-white">
                                     <i class="fa-solid fa-star"></i>
                                 </div>
-                            @elseif($index != 1) 
+                            @else 
                                  <div class="absolute inset-0 border border-white/10 group-hover:border-elegant-red/50 transition duration-500"></div>
                             @endif
                         </div>
-                        <h3 class="font-serif text-2xl text-white mb-1">{{ $leader->name }}</h3>
+                        <h3 class="font-serif text-2xl text-white mb-1 group-hover:text-elegant-gold transition">{{ $leader->name }}</h3>
                         <p class="text-elegant-red text-xs font-bold uppercase tracking-widest">{{ $leader->role }}</p>
                     </div>
                 @endforeach

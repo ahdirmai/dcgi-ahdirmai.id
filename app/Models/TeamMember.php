@@ -9,7 +9,11 @@ class TeamMember extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'role', 'type'];
+    protected $fillable = ['name', 'role', 'section', 'type', 'star'];
+
+    protected $casts = [
+        'star' => 'boolean',
+    ];
 
     public function gallery()
     {

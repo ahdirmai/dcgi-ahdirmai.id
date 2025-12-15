@@ -11,6 +11,7 @@ class TeamMembersTemplateExport implements WithHeadings
         return [
             'name',
             'role',
+            'section',
             'type',
         ];
     }

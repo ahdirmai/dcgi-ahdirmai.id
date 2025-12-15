@@ -18,6 +18,7 @@ class TeamMembersImport implements ToModel, WithHeadingRow
         return new TeamMember([
             'name' => $row['name'],
             'role' => $row['role'],
+            'section' => $row['section'] ?? null,
             'type' => $row['type'], // leadership or member
         ]);
     }

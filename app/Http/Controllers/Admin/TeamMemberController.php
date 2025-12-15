@@ -9,10 +9,33 @@ use Illuminate\Support\Facades\Storage;
 
 class TeamMemberController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $team = TeamMember::with('gallery')->latest()->get();
-        return view('admin.team.index', compact('team'));
+        $query = TeamMember::with('gallery')->latest();
+
+        // Search
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('role', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by Type
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+        
+        // Filter by Section
+        if ($request->filled('section')) {
+            $query->where('section', $request->section);
+        }
+
+        $team = $query->paginate(10);
+        $sections = TeamMember::select('section')->distinct()->whereNotNull('section')->pluck('section');
+
+        return view('admin.team.index', compact('team', 'sections'));
     }
 
     public function create()
@@ -25,11 +48,12 @@ class TeamMemberController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
+            'section' => 'nullable|string|max:255',
             'type' => 'required|in:leadership,member',
             'image' => 'nullable|image|max:2048',
         ]);
 
-        $teamMember = TeamMember::create($request->only(['name', 'role', 'type']));
+        $teamMember = TeamMember::create($request->only(['name', 'role', 'section', 'type']));
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('team', 'public');
@@ -55,11 +79,12 @@ class TeamMemberController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'role' => 'required|string|max:255',
+            'section' => 'nullable|string|max:255',
             'type' => 'required|in:leadership,member',
             'image' => 'nullable|image|max:2048',
         ]);
 
-        $teamMember->update($request->only(['name', 'role', 'type']));
+        $teamMember->update($request->only(['name', 'role', 'section', 'type']));
 
         if ($request->hasFile('image')) {
             // Delete old image
@@ -105,5 +130,22 @@ class TeamMemberController extends Controller
     public function downloadTemplate()
     {
         return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\TeamMembersTemplateExport, 'team_members_template.xlsx');
+    }
+
+    public function toggleStar($id)
+    {
+        $member = TeamMember::findOrFail($id);
+        
+        // If we are turning it ON (it was false)
+        if (!$member->star) {
+            // Turn off all others
+            TeamMember::where('star', true)->update(['star' => false]);
+            $member->update(['star' => true]);
+        } else {
+            // Turning OFF
+            $member->update(['star' => false]);
+        }
+        
+        return response()->json(['success' => true, 'star' => $member->star]);
     }
 }

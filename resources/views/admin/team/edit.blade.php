@@ -26,6 +26,12 @@
                                 <x-text-input id="role" name="role" type="text" class="mt-1 block w-full" :value="old('role', $team->role)" required />
                                 <x-input-error class="mt-2" :messages="$errors->get('role')" />
                             </div>
+
+                            <div class="md:col-span-2">
+                                <x-input-label for="section" :value="__('Section')" />
+                                <x-text-input id="section" name="section" type="text" class="mt-1 block w-full" :value="old('section', $team->section)" />
+                                <x-input-error class="mt-2" :messages="$errors->get('section')" />
+                            </div>
                         </div>
 
                         <div>

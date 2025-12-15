@@ -27,6 +27,15 @@
                         :value="old('role')" required placeholder="e.g. Band Director" />
                     <x-input-error class="mt-2 text-red-400" :messages="$errors->get('role')" />
                 </div>
+
+                <!-- Section -->
+                <div class="md:col-span-2">
+                    <x-input-label for="section" :value="__('Section (Optional)')" class="text-gray-400" />
+                    <x-text-input id="section" name="section" type="text" 
+                        class="mt-1 block w-full bg-black/20 border-white/10 text-gray-300 focus:border-elegant-gold focus:ring-elegant-gold rounded-sm" 
+                        :value="old('section')" placeholder="e.g. Brass, Battery, Color Guard" />
+                    <x-input-error class="mt-2 text-red-400" :messages="$errors->get('section')" />
+                </div>
             </div>
 
             <!-- Type -->
