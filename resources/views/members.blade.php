@@ -16,28 +16,7 @@
 <body class="bg-elegant-black font-sans text-elegant-text antialiased selection:bg-elegant-red selection:text-white">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 transition-all duration-500 bg-gradient-to-b from-black/90 to-transparent pt-4 pb-2">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <a href="{{ url('/') }}" class="text-2xl font-serif font-bold tracking-widest text-white border-b border-elegant-red pb-1 hover:text-elegant-gold transition duration-300">
-                G<span class="text-elegant-red">I</span>.
-            </a>
-
-            <div class="hidden md:flex space-x-12 text-xs font-medium tracking-[0.2em] uppercase text-gray-400">
-                <a href="{{ url('/#about') }}" class="hover:text-white transition duration-300 relative group">Tentang</a>
-                <a href="{{ url('/#vision') }}" class="hover:text-white transition duration-300 relative group">Visi</a>
-                <a href="{{ route('gallery.index') }}" class="hover:text-white transition duration-300 relative group">Galeri</a>
-                <a href="{{ route('members.index') }}" class="text-white relative group">Tim</a>
-            </div>
-
-            <a href="{{ url('/#contact') }}" class="hidden md:block text-xs font-bold tracking-widest uppercase text-white border border-white/20 px-6 py-2 hover:bg-elegant-red hover:border-elegant-red transition duration-300 rounded-sm">
-                Kontak
-            </a>
-            
-             <div class="md:hidden text-white text-xl cursor-pointer">
-                <i class="fa-solid fa-bars-staggered"></i>
-            </div>
-        </div>
-    </nav>
+    <x-navbar />
 
     <!-- Header -->
     <header class="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
