@@ -6,10 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
     <!-- Primary Meta Tags -->
-    <title>DC Genderang Irama - Marching Band MAN 2 Model Banjarmasin</title>
-    <meta name="title" content="DC Genderang Irama - Marching Band MAN 2 Model Banjarmasin">
-    <meta name="description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 Model Banjarmasin. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik sejak 2009.">
-    <meta name="keywords" content="DCGI, Drum Corps Genderang Irama, Marching Band Banjarmasin, MAN 2 Model Banjarmasin, Ekstrakurikuler MAN 2, Drumband Kalsel, Seni Pertunjukan">
+    <title>DC Genderang Irama - Marching Band MAN 2 BANJARMASIN</title>
+    <meta name="title" content="DC Genderang Irama - Marching Band MAN 2 BANJARMASIN">
+    <meta name="description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 BANJARMASIN. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik sejak 2009.">
+    <meta name="keywords" content="DCGI, Drum Corps Genderang Irama, Marching Band Banjarmasin, MAN 2 BANJARMASIN, Ekstrakurikuler MAN 2, Drumband Kalsel, Seni Pertunjukan">
     <meta name="author" content="DC Genderang Irama">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="{{ url('/') }}">
@@ -17,16 +17,16 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url('/') }}">
-    <meta property="og:title" content="DC Genderang Irama - Marching Band MAN 2 Model Banjarmasin">
-    <meta property="og:description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 Model Banjarmasin. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik.">
-    <meta property="og:image" content="{{ asset('favicon.ico') }}"> <!-- Ganti dengan URL gambar preview yang lebih besar jika ada -->
+    <meta property="og:title" content="DC Genderang Irama - Marching Band MAN 2 BANJARMASIN">
+    <meta property="og:description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 BANJARMASIN. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik.">
+    <meta property="og:image" content="{{ asset('banner.png') }}"> <!-- Ganti dengan URL gambar preview yang lebih besar jika ada -->
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ url('/') }}">
-    <meta property="twitter:title" content="DC Genderang Irama - Marching Band MAN 2 Model Banjarmasin">
-    <meta property="twitter:description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 Model Banjarmasin. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik.">
-    <meta property="twitter:image" content="{{ asset('favicon.ico') }}"> <!-- Ganti dengan URL gambar preview yang lebih besar jika ada -->
+    <meta property="twitter:title" content="DC Genderang Irama - Marching Band MAN 2 BANJARMASIN">
+    <meta property="twitter:description" content="Website Resmi Drum Corps Genderang Irama (DCGI) MAN 2 BANJARMASIN. Unit marching band berprestasi yang memadukan kedisiplinan, seni musik, dan visual artistik.">
+    <meta property="twitter:image" content="{{ asset('banner.png') }}"> <!-- Ganti dengan URL gambar preview yang lebih besar jika ada -->
 
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">

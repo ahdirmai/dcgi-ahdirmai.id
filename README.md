@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is the official landing page and content management system for **DC Genderang Irama (MAN 2 Model Banjarmasin)**. The system allows administrators to manage dynamic content such as Visions, Missions, Galleries, Achievements, and Team Members via a user-friendly admin interface.
+This is the official landing page and content management system for **DC Genderang Irama (MAN 2 BANJARMASIN)**. The system allows administrators to manage dynamic content such as Visions, Missions, Galleries, Achievements, and Team Members via a user-friendly admin interface.
 
 ## Key Features
 
