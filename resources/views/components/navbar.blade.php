@@ -17,6 +17,11 @@
                Galeri
             </a>
             
+            <a href="{{ Request::is('/') ? '#achievements' : route('achievements.index') }}" 
+               class="{{ Request::routeIs('achievements.*') ? 'text-white' : 'hover:text-white' }} transition duration-300 relative group">
+               Prestasi
+            </a>
+            
             <a href="{{ Request::is('/') ? '#team' : route('members.index') }}" 
                class="{{ Request::routeIs('members.*') ? 'text-white' : 'hover:text-white' }} transition duration-300 relative group">
                Tim
@@ -47,6 +52,7 @@
         <a href="{{ Request::is('/') ? '#vision' : url('/#vision') }}" @click="mobileMenuOpen = false" class="text-white text-xl font-serif tracking-widest hover:text-elegant-red transition">Visi</a>
         
         <a href="{{ Request::is('/') ? '#gallery' : route('gallery.index') }}" @click="mobileMenuOpen = false" class="text-white text-xl font-serif tracking-widest hover:text-elegant-red transition">Galeri</a>
+        <a href="{{ Request::is('/') ? '#achievements' : route('achievements.index') }}" @click="mobileMenuOpen = false" class="text-white text-xl font-serif tracking-widest hover:text-elegant-red transition">Prestasi</a>
         <a href="{{ Request::is('/') ? '#team' : route('members.index') }}" @click="mobileMenuOpen = false" class="text-white text-xl font-serif tracking-widest hover:text-elegant-red transition">Tim</a>
         
         <a href="{{ Request::is('/') ? '#contact' : url('/#contact') }}" @click="mobileMenuOpen = false" class="text-elegant-gold text-xl font-serif tracking-widest hover:text-white transition">Kontak</a>

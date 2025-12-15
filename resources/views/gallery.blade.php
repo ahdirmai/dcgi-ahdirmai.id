@@ -20,8 +20,24 @@
 
     <!-- Header -->
     <header class="relative h-[40vh] min-h-[300px] flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-black/70 to-elegant-black z-10"></div>
-        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514525253440-b39345208668?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 z-0">
+            @php
+                $heroType = $siteContent['hero_background_type']->content ?? 'image';
+                $heroUrl = $siteContent['hero_background_url']->content ?? 'https://picsum.photos/1920/1080?grayscale&blur=2';
+            @endphp
+
+            @if($heroType == 'video')
+                <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80 scale-105">
+                    <source src="{{ asset($heroUrl) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            @else
+                <img src="{{ Str::startsWith($heroUrl, 'http') ? $heroUrl : asset($heroUrl) }}" alt="Hero Background" class="w-full h-full object-cover opacity-70 scale-105 animate-[pulse_10s_ease-in-out_infinite]">
+            @endif
+            
+            <div class="absolute inset-0 bg-gradient-to-t from-elegant-black via-elegant-black/60 to-elegant-red/10 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-elegant-black/90"></div>
+        </div>
         
         <div class="relative z-20 text-center px-4">
             <h1 class="font-serif text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-elegant-gold to-yellow-200 mb-4 animate-fade-up">Galeri Kami</h1>

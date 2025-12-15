@@ -21,7 +21,20 @@
     <!-- Header -->
     <header class="relative h-[50vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
-             <img src="https://images.unsplash.com/photo-1519750783826-e2420f4d687f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Team Background" class="w-full h-full object-cover opacity-70 scale-105 animate-[pulse_10s_ease-in-out_infinite]">
+            @php
+                $heroType = $siteContent['hero_background_type']->content ?? 'image';
+                $heroUrl = $siteContent['hero_background_url']->content ?? 'https://picsum.photos/1920/1080?grayscale&blur=2';
+            @endphp
+
+            @if($heroType == 'video')
+                <video autoplay loop muted playsinline class="w-full h-full object-cover opacity-80 scale-105">
+                    <source src="{{ asset($heroUrl) }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            @else
+                <img src="{{ Str::startsWith($heroUrl, 'http') ? $heroUrl : asset($heroUrl) }}" alt="Hero Background" class="w-full h-full object-cover opacity-70 scale-105 animate-[pulse_10s_ease-in-out_infinite]">
+            @endif
+            
             <div class="absolute inset-0 bg-gradient-to-t from-elegant-black via-elegant-black/60 to-elegant-red/10 mix-blend-multiply"></div>
             <div class="absolute inset-0 bg-gradient-to-b from-black/40 to-elegant-black/90"></div>
         </div>

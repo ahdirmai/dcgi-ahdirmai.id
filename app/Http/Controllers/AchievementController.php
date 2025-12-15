@@ -14,6 +14,10 @@ class AchievementController extends Controller
     {
         $achievements = Achievement::with('galleries')->orderBy('year', 'desc')->get();
 
-        return view('achievements', compact('achievements'));
+        $siteContent = \App\Models\SiteContent::all()->keyBy(function ($item) {
+            return $item->section . '_' . $item->key;
+        });
+
+        return view('achievements', compact('achievements', 'siteContent'));
     }
 }

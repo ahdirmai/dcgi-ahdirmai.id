@@ -39,6 +39,10 @@ class MembersController extends Controller
 
         // return $leadership;
 
-        return view('members', compact('leadership', 'members'));
+        $siteContent = \App\Models\SiteContent::all()->keyBy(function ($item) {
+            return $item->section . '_' . $item->key;
+        });
+
+        return view('members', compact('leadership', 'members', 'siteContent'));
     }
 }
