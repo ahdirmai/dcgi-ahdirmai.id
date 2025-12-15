@@ -9,7 +9,7 @@ class Achievement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'year', 'description'];
+    protected $fillable = ['title', 'year', 'description', 'long_description', 'featured'];
 
     public function galleries()
     {

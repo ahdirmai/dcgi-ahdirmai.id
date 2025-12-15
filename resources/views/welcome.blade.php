@@ -248,6 +248,12 @@
                 @endforeach
 
             </div>
+            
+            <div class="mt-16 text-center animate-on-scroll">
+                 <a href="{{ route('achievements.index') }}" class="inline-block px-10 py-4 border border-white/20 text-white font-bold text-xs uppercase tracking-[0.2em] hover:bg-white hover:text-black transition duration-300">
+                    View All Achievements
+                </a>
+            </div>
         </div>
     </div>
 </section>
@@ -350,8 +356,16 @@
         </div>
 
         <div class="p-6 md:p-8 overflow-y-auto custom-scrollbar">
+            
+            <!-- Long Description Section -->
+            <div id="modalLongDescContainer" class="mb-8 hidden">
+                <h4 class="text-white font-serif text-lg mb-2">Detail Pencapaian</h4>
+                <p id="modalLongDesc" class="text-gray-300 text-sm leading-relaxed whitespace-pre-line text-justify"></p>
+                <div class="w-full h-[1px] bg-white/10 mt-6"></div>
+            </div>
+
             <div id="modalImages" class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                </div>
+            </div>
         </div>
 
     </div>
@@ -364,32 +378,46 @@
         return [
             'title' => $item->title,
             'desc' => $item->description,
+            'long_desc' => $item->long_description,
             'images' => $item->galleries->pluck('image_path')
         ];
     })) !!};
 
-    function openModal(year) {
-        const data = achievementData[year];
+    function openModal(id) {
+        const data = achievementData[id];
         const modal = document.getElementById('galleryModal');
         const container = document.getElementById('modalImages');
+        const longDescContainer = document.getElementById('modalLongDescContainer');
         
         // Set Text
         document.getElementById('modalTitle').innerText = data.title;
         document.getElementById('modalDesc').innerText = data.desc;
         
+        // Handle Long Description
+        if (data.long_desc) {
+            document.getElementById('modalLongDesc').innerText = data.long_desc;
+            longDescContainer.classList.remove('hidden');
+        } else {
+            longDescContainer.classList.add('hidden');
+        }
+        
         // Clear previous images
         container.innerHTML = '';
 
         // Inject new images
-        data.images.forEach(imgUrl => {
-            const imgDiv = document.createElement('div');
-            imgDiv.className = 'overflow-hidden rounded-sm group relative h-48 md:h-64';
-            imgDiv.innerHTML = `
-                <img src="${imgUrl}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
-            `;
-            container.appendChild(imgDiv);
-        });
+        if (data.images.length > 0) {
+            data.images.forEach(imgUrl => {
+                const imgDiv = document.createElement('div');
+                imgDiv.className = 'overflow-hidden rounded-sm group relative h-48 md:h-64';
+                imgDiv.innerHTML = `
+                    <img src="${imgUrl}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                `;
+                container.appendChild(imgDiv);
+            });
+        } else {
+             container.innerHTML = '<p class="col-span-3 text-center text-gray-500 text-sm italic py-4">Tidak ada dokumentasi foto untuk pencapaian ini.</p>';
+        }
 
         // Show Modal with Animation
         modal.classList.remove('hidden');

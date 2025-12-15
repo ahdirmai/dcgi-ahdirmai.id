@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', App\Http\Controllers\WelcomeController::class);
 Route::get('/galery', [App\Http\Controllers\GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/achievements', [App\Http\Controllers\AchievementController::class, 'index'])->name('achievements.index');
 Route::get('/members', [App\Http\Controllers\MembersController::class, 'index'])->name('members.index');
 
 Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])
@@ -14,7 +15,9 @@ Route::get('/admin/dashboard', [App\Http\Controllers\Admin\DashboardController::
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('vision-mission', App\Http\Controllers\Admin\VisionMissionController::class)->only(['index', 'store', 'update', 'destroy']);
     Route::resource('albums', App\Http\Controllers\Admin\AlbumController::class);
-    Route::resource('achievements', App\Http\Controllers\Admin\AchievementController::class);
+    Route::get('achievements/template', [App\Http\Controllers\Admin\AchievementController::class, 'downloadTemplate'])->name('achievements.template');
+    Route::post('achievements/import', [App\Http\Controllers\Admin\AchievementController::class, 'import'])->name('achievements.import');
+    Route::post('achievements/{achievement}/toggle-featured', [App\Http\Controllers\Admin\AchievementController::class, 'toggleFeatured'])->name('achievements.toggle-featured');
     Route::resource('achievements', App\Http\Controllers\Admin\AchievementController::class);
 
     Route::get('site-content', [App\Http\Controllers\Admin\SiteContentController::class, 'index'])->name('site-content.index');

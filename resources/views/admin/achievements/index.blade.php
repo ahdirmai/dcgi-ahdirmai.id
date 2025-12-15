@@ -5,11 +5,34 @@
 
     <div class="p-6 bg-elegant-charcoal shadow-lg sm:rounded-sm border border-white/5">
         
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
             <h3 class="text-lg font-medium text-white font-serif italic">{{ __('Achievement List') }}</h3>
-            <a href="{{ route('admin.achievements.create') }}" class="bg-elegant-gold text-black hover:bg-yellow-600 font-bold py-2 px-4 rounded-sm text-sm uppercase tracking-wider">
-                {{ __('Add New Achievement') }}
-            </a>
+            <div class="flex gap-2">
+                <div x-data="{ open: false }" class="relative">
+                    <button @click="open = !open" class="bg-green-600 text-white hover:bg-green-700 font-bold py-2 px-4 rounded-sm text-sm uppercase tracking-wider">
+                        {{ __('Import Excel') }}
+                    </button>
+                    <div x-show="open" @click.away="open = false" class="absolute right-0 mt-2 w-72 bg-elegant-charcoal border border-white/10 shadow-xl rounded-sm p-4 z-50">
+                         <form action="{{ route('admin.achievements.import') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
+                            @csrf
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-1">Select Excel File</label>
+                                <input type="file" name="file" accept=".xlsx,.xls,.csv" required class="block w-full text-xs text-gray-400 file:mr-2 file:py-1 file:px-2 file:rounded-sm file:border-0 file:text-xs file:bg-white/10 file:text-white hover:file:bg-white/20">
+                            </div>
+                            
+                            <div class="flex justify-between items-center">
+                                <a href="{{ route('admin.achievements.template') }}" class="text-xs text-elegant-gold hover:underline">Download Template</a>
+                                <button type="submit" class="bg-elegant-gold text-black hover:bg-yellow-600 font-bold py-1 px-3 rounded-sm text-xs uppercase tracking-wider">
+                                    {{ __('Upload & Import') }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <a href="{{ route('admin.achievements.create') }}" class="bg-elegant-gold text-black hover:bg-yellow-600 font-bold py-2 px-4 rounded-sm text-sm uppercase tracking-wider">
+                    {{ __('Add New Achievement') }}
+                </a>
+            </div>
         </div>
 
         <div class="overflow-x-auto">
@@ -18,6 +41,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Year</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Title</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Featured</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Images</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-400 uppercase tracking-wider">Actions</th>
                     </tr>
@@ -29,6 +53,14 @@
                             <td class="px-6 py-4">
                                 <div class="font-bold text-white font-serif">{{ $achievement->title }}</div>
                                 <div class="text-xs text-gray-500 mt-1 line-clamp-2">{{ $achievement->description }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <form action="{{ route('admin.achievements.toggle-featured', $achievement->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="px-2 py-1 text-xs font-bold rounded-sm uppercase tracking-wider transition {{ $achievement->featured ? 'bg-elegant-gold text-black hover:bg-yellow-600' : 'bg-white/10 text-gray-400 hover:bg-white/20' }}">
+                                        {{ $achievement->featured ? 'Active' : 'Inactive' }}
+                                    </button>
+                                </form>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-sm bg-white/10 text-gray-300">

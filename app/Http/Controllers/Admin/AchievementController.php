@@ -27,10 +27,11 @@ class AchievementController extends Controller
             'title' => 'required|string|max:255',
             'year' => 'required|string|max:4',
             'description' => 'nullable|string',
+            'long_description' => 'nullable|string',
             'images.*' => 'image|max:2048', // Multiple images
         ]);
 
-        $achievement = Achievement::create($request->only(['title', 'year', 'description']));
+        $achievement = Achievement::create($request->only(['title', 'year', 'description', 'long_description']));
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -58,10 +59,11 @@ class AchievementController extends Controller
             'title' => 'required|string|max:255',
             'year' => 'required|string|max:4',
             'description' => 'nullable|string',
+            'long_description' => 'nullable|string',
             'images.*' => 'image|max:2048',
         ]);
 
-        $achievement->update($request->only(['title', 'year', 'description']));
+        $achievement->update($request->only(['title', 'year', 'description', 'long_description']));
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -86,5 +88,32 @@ class AchievementController extends Controller
         $achievement->delete();
 
         return redirect()->route('admin.achievements.index')->with('success', 'Achievement deleted successfully.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        \Maatwebsite\Excel\Facades\Excel::import(new \App\Imports\AchievementsImport, $request->file('file'));
+
+        return back()->with('success', 'Achievements imported successfully.');
+    }
+
+    public function downloadTemplate()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\AchievementsTemplateExport, 'achievements_template.xlsx');
+    }
+
+    public function toggleFeatured(Achievement $achievement)
+    {
+        if (!$achievement->featured && Achievement::where('featured', true)->count() >= 4) {
+            return back()->with('error', 'You can only feature up to 4 achievements. Please unfeature one first.');
+        }
+
+        $achievement->update(['featured' => !$achievement->featured]);
+
+        return back()->with('success', 'Achievement featured status updated.');
     }
 }

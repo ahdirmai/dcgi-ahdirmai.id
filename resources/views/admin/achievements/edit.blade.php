@@ -39,6 +39,15 @@
                 <x-input-error class="mt-2 text-red-400" :messages="$errors->get('description')" />
             </div>
 
+            <!-- Long Description -->
+            <div>
+                <x-input-label for="long_description" :value="__('Long Description')" class="text-gray-400" />
+                <textarea id="long_description" name="long_description" 
+                    class="mt-1 block w-full bg-black/20 border-white/10 text-gray-300 focus:border-elegant-gold focus:ring-elegant-gold rounded-sm h-32"
+                    >{{ old('long_description', $achievement->long_description) }}</textarea>
+                <x-input-error class="mt-2 text-red-400" :messages="$errors->get('long_description')" />
+            </div>
+
             <!-- Current Images -->
             <div class="border-t border-white/10 pt-4">
                 <h3 class="text-sm font-medium text-gray-400 mb-4">{{ __('Current Images') }}</h3>

@@ -22,7 +22,11 @@ class WelcomeController extends Controller
         // Get 4 latest albums for the grid
         $albums = Album::latest()->take(4)->get();
 
-        $achievements = Achievement::with('galleries')->orderBy('year', 'asc')->get();
+        $achievements = Achievement::with('galleries')
+            ->where('featured', true)
+            ->orderBy('year', 'desc')
+            ->take(4)
+            ->get();
         // Group achievements by year if needed, or just pass them. Frontend loop iterates them.
 
         $leadership = TeamMember::with('gallery')->where('type', 'leadership')->get();
